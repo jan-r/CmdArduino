@@ -34,12 +34,12 @@ void setup() {
 Call `cmdInit` with a pointer to the stream you are using. Call `cmdAdd`
 to attach a string command to the command function.  Now you can type `left`
 or `right` into your serial port to command the robot.  The serial port
-will be parsed using newline, `\n`, as the delimiter. The command name should
+will be parsed using line feed, `\r`, as the delimiter. The command name should
 be the first item and any arguments after that.  For example, to tell the robot
 to turn left for three seconds, type in:
 
 ```
-left 3000\n
+left 3000<ENTER>
 ```
 
 Then the left function becomes
@@ -58,10 +58,6 @@ void left(int arg_cnt, char **args) {
 
 
 
-
-
-
-
 == original readme
 
 The Arduino Command Line Interface, aka CmdArduino, is a simple shell that can
@@ -72,3 +68,4 @@ the functions they wrote so they can easily toggle pins, set blinking speed,
 set pwm duty cycles, or whatever else might need command line user input. Using
 it is fairly simple and just requires unzipping the files into the
 "Arduino/libraries" sub-directory in the Arduino program folder.
+

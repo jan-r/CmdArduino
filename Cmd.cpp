@@ -132,7 +132,6 @@ void cmd_handler()
 
     switch (c)
     {
-    case '.':
     case '\r':
         // terminate the msg and reset the msg ptr. then send
         // it to the handler for processing.
