@@ -41,7 +41,11 @@
 #ifndef CMD_H
 #define CMD_H
 
+// maximum length of a command line
 #define MAX_MSG_SIZE    60
+// maximum number of arguments (including command)
+#define MAX_ARGC        30
+
 #include <stdint.h>
 
 // command line structure

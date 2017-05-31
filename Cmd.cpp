@@ -55,9 +55,8 @@ static uint8_t *msg_ptr;
 static cmd_t *cmd_tbl_list, *cmd_tbl;
 
 // text strings for command prompt (stored in flash)
-const char cmd_banner[] PROGMEM = "*************** CMD *******************";
-const char cmd_prompt[] PROGMEM = "CMD >> ";
-const char cmd_unrecog[] PROGMEM = "CMD: Command not recognized.";
+const char cmd_prompt[] PROGMEM = ">> ";
+const char cmd_unrecog[] PROGMEM = "*** Command not recognized.";
 
 static Stream* stream;
 
@@ -68,13 +67,8 @@ static Stream* stream;
 /**************************************************************************/
 void cmd_display()
 {
-    char buf[50];
-
+    char buf[sizeof(cmd_prompt)];
     stream->println();
-
-    strcpy_P(buf, cmd_banner);
-    stream->println(buf);
-
     strcpy_P(buf, cmd_prompt);
     stream->print(buf);
 }
@@ -89,8 +83,8 @@ void cmd_display()
 void cmd_parse(char *cmd)
 {
     uint8_t argc, i = 0;
-    char *argv[30];
-    char buf[50];
+    char *argv[MAX_ARGC];
+    char buf[sizeof(cmd_unrecog)];
     cmd_t *cmd_entry;
 
     fflush(stdout);
@@ -101,7 +95,7 @@ void cmd_parse(char *cmd)
     do
     {
         argv[++i] = strtok(NULL, " ");
-    } while ((i < 30) && (argv[i] != NULL));
+    } while ((i < MAX_ARGC) && (argv[i] != NULL));
 
     // save off the number of arguments for the particular command.
     argc = i;
@@ -199,6 +193,8 @@ void cmdInit(Stream *str)
     // init the command table
     cmd_tbl_list = NULL;
 
+    // initial prompt
+    cmd_display();
 }
 
 /**************************************************************************/
@@ -250,3 +246,4 @@ uint32_t cmdStr2Num(char *str, uint8_t base)
 {
     return strtol(str, NULL, base);
 }
+
