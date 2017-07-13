@@ -26,8 +26,8 @@ void right(int arg_cnt, char **args) {
 void setup() {
     Serial.begin(9600);
     cmdInit(&Serial);
-    cmdAdd('left',left);
-    cmdAdd('right',right);
+    cmdAdd("left", left);
+    cmdAdd("right", right);
 }
 ```
 
